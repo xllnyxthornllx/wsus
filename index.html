@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagrama de Red - WSUS</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: "default" });
+  </script>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f4f6f9, #e9f0fa);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      text-align: center;
+      color: #34495e;
+      margin-bottom: 20px;
+    }
+    .diagram {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .info {
+      margin-top: 30px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      max-width: 700px;
+    }
+    .info h2 {
+      color: #2980b9;
+      border-left: 5px solid #3498db;
+      padding-left: 10px;
+    }
+    .info ul {
+      line-height: 1.8em;
+      list-style: none;
+      padding: 0;
+    }
+    .info li {
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 20px;
+    }
+    .info li::before {
+      content: "✔";
+      color: #27ae60;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📡 Diagrama de Red - Implementación de WSUS</h1>
+
+  <div class="diagram">
+    <div class="mermaid">
+      graph TD
+        A["<b>LON-DC1</b><br>Controlador de Dominio"]:::server
+        B["<b>LON-SVR1</b><br>WSUS Principal"]:::server
+        C["<b>LON-SVR4</b><br>WSUS Secundario"]:::server
+        D["<b>LON-CL1</b><br>Cliente Windows"]:::pc
+
+        A --> B
+        B --> C
+        C --> D
+
+      classDef server fill:#3498db,stroke:#2c3e50,stroke-width:2px,color:#fff,font-size:16px;
+      classDef pc fill:#2ecc71,stroke:#27ae60,stroke-width:2px,color:#fff,font-size:16px;
+    </div>
+  </div>
+
+  <div class="info">
+    <h2>💡 Explicación</h2>
+    <ul>
+      <li><b>LON-DC1</b>: Controlador de dominio que aplica las GPO para que los clientes usen WSUS.</li>
+      <li><b>LON-SVR1</b>: Servidor WSUS principal que descarga actualizaciones desde Microsoft.</li>
+      <li><b>LON-SVR4</b>: Servidor WSUS secundario que se sincroniza con LON-SVR1 y distribuye actualizaciones a la sucursal.</li>
+      <li><b>LON-CL1</b>: Cliente Windows que recibe e instala las actualizaciones aprobadas.</li>
+    </ul>
+
+    <h2>✅ Beneficios de WSUS</h2>
+    <ul>
+      <li>Centraliza la administración de actualizaciones en toda la organización.</li>
+      <li>Reduce el consumo de internet y mejora la seguridad.</li>
+      <li>Permite segmentar equipos por áreas (ej. Research) con políticas de grupo.</li>
+      <li>Automatiza el proceso y evita que los usuarios dependan de actualizaciones manuales.</li>
+    </ul>
+  </div>
+
+</body>
+</html>
